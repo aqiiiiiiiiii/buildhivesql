@@ -12,7 +12,7 @@ public class App {
     public static String LINE_SEPARATOR = System.getProperty("line.separator");
 
     public static void main( String[] args ) {
-        convert("/Volumes/Data/sql转换/so.sql", "ads.so_inc", ENV_DT_MODEL);
+        convert("/Volumes/Data/sql转换/so_return_item.sql", "ads.so_return_item_inc", ENV_DT_MODEL);
     }
 
     public static void convert(String url, String hiveTableName, int partitionModel){
@@ -26,7 +26,7 @@ public class App {
             sb.append(hiveTableName);
             sb.append(";");
             sb.append(LINE_SEPARATOR);
-            sb.append("CREATE EXTERNAL TABLE IF NOT EXISTS");
+            sb.append("CREATE EXTERNAL TABLE IF NOT EXISTS ");
             sb.append(hiveTableName);
             sb.append("(");
             sb.append(LINE_SEPARATOR);
@@ -42,6 +42,9 @@ public class App {
                     String type = elements[3];
                     if(!field.startsWith("`")){
                         break;
+                    }
+                    if(field.startsWith("`del_")){
+                        continue;
                     }
 //                    String comment = null;
 //                    int commentIndex = 0;
@@ -88,9 +91,11 @@ public class App {
                 }
                 result = result + "ROW FORMAT DELIMITED FIELDS TERMINATED BY '\\001' LINES TERMINATED BY '\\n' STORED AS textfile;";
             }
+            System.out.println(LINE_SEPARATOR);
             System.out.println(result);
             System.out.println(LINE_SEPARATOR);
             System.out.println(selectFields);
+            System.out.println(LINE_SEPARATOR);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e2){
