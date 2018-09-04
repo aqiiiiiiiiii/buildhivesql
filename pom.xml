@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.oranfish</groupId>
-  <artifactId>BuildHiveSql</artifactId>
+  <artifactId>buildhivesql</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>BuildHiveSql</name>
